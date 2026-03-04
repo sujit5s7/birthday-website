@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Countdown</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+font-family:Arial, sans-serif;
+}
+
+/* 9:16 Container */
+.phone{
+width:100%;
+max-width:420px;
+aspect-ratio:9/16;
+background:linear-gradient(to bottom, #000000, #001f3f, #003366);
+border-radius:20px;
+overflow:hidden;
+position:relative;
+box-shadow:0 0 30px rgba(0,0,0,0.8);
+}
+
+/* Center Content */
+.content{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+text-align:center;
+color:white;
+width:92%;
+}
+
+h1{
+font-size:20px;
+margin-bottom:20px;
+}
+
+/* Countdown Layout */
+#countdown{
+display:grid;
+grid-template-columns:repeat(2, 1fr);
+gap:12px;
+}
+
+/* Smaller Boxes */
+.time-box{
+background:#000;
+padding:12px 8px;
+border-radius:8px;
+}
+
+.time-value{
+font-size:22px;
+font-weight:bold;
+}
+
+.time-label{
+font-size:12px;
+margin-top:4px;
+color:#bbb;
+letter-spacing:1px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="phone">
+    <div class="content">
+        <h1>⏳</h1>
+
+        <div id="countdown">
+            <div class="time-box">
+                <div id="days" class="time-value">0</div>
+                <div class="time-label">Days</div>
+            </div>
+
+            <div class="time-box">
+                <div id="hours" class="time-value">0</div>
+                <div class="time-label">Hours</div>
+            </div>
+
+            <div class="time-box">
+                <div id="minutes" class="time-value">0</div>
+                <div class="time-label">Minutes</div>
+            </div>
+
+            <div class="time-box">
+                <div id="seconds" class="time-value">0</div>
+                <div class="time-label">Seconds</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+// Set Date
+var targetDate = new Date("March 26, 2026 00:00:00").getTime();
+
+var timer = setInterval(function(){
+
+    var now = new Date().getTime();
+    var distance = targetDate - now;
+
+    if(distance <= 0){
+        clearInterval(timer);
+        document.getElementById("days").innerHTML = 0;
+        document.getElementById("hours").innerHTML = 0;
+        document.getElementById("minutes").innerHTML = 0;
+        document.getElementById("seconds").innerHTML = 0;
+        return;
+    }
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerHTML = days;
+    document.getElementById("hours").innerHTML = hours;
+    document.getElementById("minutes").innerHTML = minutes;
+    document.getElementById("seconds").innerHTML = seconds;
+
+}, 1000);
+
+</script>
+
+</body>
+</html>
